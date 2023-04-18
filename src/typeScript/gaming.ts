@@ -4,9 +4,9 @@ import { getConfiguration, getPeople, getPicture, getPlayerName } from "./networ
 
 let disable = false;
 let points = 0;
-let fails = 0;
+let failAttempt = 0;
 let rounds = 0;
-const maxRounds = 3;
+let failRound = 0;
 
 
 window.addEventListener("load", setupRound);
@@ -81,8 +81,9 @@ function guessHandler(name:string,button:HTMLElement,round:Round,divScore:HTMLDi
         button.classList.remove("btn-light");
         button.classList.add("btn-danger");
         button.setAttribute("disabled","")
-        fails++;
-        if(fails === 3){
+        failAttempt++;
+        if(failAttempt === 2){
+          failRound++;
           nextRound(celebrityImg);
           disable =true;
           // Highlight the correct answer
@@ -118,13 +119,13 @@ function guessHandler(name:string,button:HTMLElement,round:Round,divScore:HTMLDi
 function nextRound(celebrityImg:HTMLImageElement){
   celebrityImg.classList.remove("blur2","blur1")
         setTimeout(() => {
-          if (rounds >= maxRounds) {
+          if (failRound === 3) {
             setScoreBoard({username:getPlayerName(),score:points})
             return location.href = `scoreboard.html` 
           }
           setupRound()
         }, 3000);
-        fails = 0 ;
+        failAttempt = 0 ;
 }
 
 
