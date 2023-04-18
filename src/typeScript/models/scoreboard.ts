@@ -1,0 +1,3 @@
+interface scoreBoard {
+    playerScores: PlayerScore[];
+  }

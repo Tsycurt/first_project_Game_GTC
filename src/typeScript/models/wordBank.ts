@@ -1,0 +1,4 @@
+interface WordBank {
+    names: string[];
+  }
+  
