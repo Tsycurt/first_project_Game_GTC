@@ -2,15 +2,15 @@ const apiKey = "3d1fc38204541bdd53f5ba361df76c70";
 let configuration: Configuration;
 
 
-
 export function getPlayerName(){
-    try{
+  try {
     let playerName = window.location.search.substring(1).split("=")[1];
-    return playerName;}
-    catch{
-      return "unknown";
-    }
+    playerName = decodeURIComponent(playerName.replace(/\+/g, '%20')); // This will replace any '+' characters with '%20' to preserve spaces
+    return playerName;
+  } catch {
+    return "unknown";
   }
+}
 
 export async function getPeople(page: Number): Promise<TrendingResponse> {
     const TrendingResponse = await fetch(
